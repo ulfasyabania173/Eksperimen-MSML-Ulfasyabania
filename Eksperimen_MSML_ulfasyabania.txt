@@ -1,0 +1,29 @@
+# Eksperimen MSML Ulfasyabania
+
+## Tahapan Preprocessing
+1. Membaca dataset ionosphere.csv
+2. Melakukan pembersihan data dan preprocessing otomatis dengan script `Preprocessing/automate_ulfasyabania.py`
+3. Menyimpan hasil preprocessing ke `Preprocessing/ionosphere_preprocessing.csv`
+4. Workflow GitHub Actions (`.github/workflows/preprocess.yml`) untuk menjalankan preprocessing otomatis saat ada perubahan di repo
+
+## Tahapan Membangun Model
+1. Membaca data hasil preprocessing (`ionosphere_preprocessing.csv`)
+2. Split data menjadi train dan test
+3. Melatih model RandomForestClassifier
+4. Logging parameter, metrik, dan artefak ke MLflow (autolog/manual log)
+5. Menyimpan classification report ke artefak
+6. Menyimpan model ke artefak MLflow (`mlflow.sklearn.log_model`)
+7. Workflow CI/CD untuk training model otomatis dan upload artefak (`.github/workflows/ci_train_model.yml`)
+
+## File Terkait
+- Preprocessing/automate_ulfasyabania.py
+- Preprocessing/ionosphere_preprocessing.csv
+- Membangun_model/modeling_ulfasyabania.py
+- Membangun_model/modeling_tuning_ulfasyabania.py
+- Workflow-CI/MLProject/modeling_ulfasyabania.py
+- requirements.txt, conda.yaml, MLProject
+- .github/workflows/preprocess.yml, ci_train_model.yml, ci_train_and_upload.yml
+
+## Catatan
+- Semua tahapan dapat dijalankan otomatis melalui workflow GitHub Actions.
+- Model dan artefak dapat di-serving dan dimonitor secara lokal menggunakan MLflow.

@@ -1,0 +1,42 @@
+# Dokumentasi Workflow-CI Eksperimen MSML Ulfasyabania
+
+## Tujuan
+Workflow-CI dibuat untuk mengotomatisasi proses training, evaluasi, dan deployment model machine learning secara terintegrasi menggunakan GitHub Actions dan MLflow.
+
+## Tahapan Workflow-CI
+1. **Struktur Folder**
+   - `Workflow-CI/MLProject/` : Berisi script model, environment, dan konfigurasi MLflow Project.
+   - `.github/workflows/` : Berisi file workflow GitHub Actions untuk CI/CD.
+
+2. **File Utama**
+   - `Workflow-CI/MLProject/modeling_ulfasyabania.py` : Script utama training model.
+   - `Workflow-CI/MLProject/conda.yaml` : Environment conda untuk MLflow Project.
+   - `Workflow-CI/MLProject/MLProject` : Konfigurasi MLflow Project.
+
+3. **Workflow GitHub Actions**
+   - `.github/workflows/ci_train_model.yml` : Workflow untuk training model otomatis dan upload artefak saat ada perubahan pada script/data.
+   - `.github/workflows/ci_train_and_upload.yml` : Workflow untuk training dan upload artefak ke tab Actions GitHub.
+
+4. **Alur CI/CD**
+   - Trigger: Push ke branch utama atau perubahan pada file terkait model/data.
+   - Langkah:
+     1. Checkout repository.
+     2. Setup environment Python 3.11.
+     3. Install dependencies dari `requirements.txt` atau `conda.yaml`.
+     4. Jalankan script training model.
+     5. Upload artefak hasil training (model, classification_report.txt, dsb) ke GitHub Actions.
+
+5. **Integrasi MLflow Project**
+   - MLflow Project (`MLProject` dan `conda.yaml`) memungkinkan eksekusi portable dan reproducible baik lokal maupun di CI/CD.
+   - Model dan artefak dapat di-serving secara lokal menggunakan MLflow CLI.
+
+## File Terkait
+- Workflow-CI/MLProject/modeling_ulfasyabania.py
+- Workflow-CI/MLProject/conda.yaml
+- Workflow-CI/MLProject/MLProject
+- .github/workflows/ci_train_model.yml
+- .github/workflows/ci_train_and_upload.yml
+
+## Catatan
+- Workflow dapat dikustomisasi sesuai kebutuhan (misal: deployment ke cloud, monitoring, dsb).
+- Semua proses dapat dijalankan otomatis tanpa intervensi manual setelah push ke repository.

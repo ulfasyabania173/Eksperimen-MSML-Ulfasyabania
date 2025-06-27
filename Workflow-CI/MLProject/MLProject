@@ -1,0 +1,8 @@
+name: MLProject
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters: {}
+    command: "python modeling_ulfasyabania.py"
