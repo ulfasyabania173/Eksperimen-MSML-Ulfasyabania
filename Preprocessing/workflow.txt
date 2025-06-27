@@ -1,0 +1,16 @@
+# Workflow Preprocessing Ionosphere Dataset
+
+1. Pastikan file data mentah (ionosphere_raw.csv) tersedia di folder utama.
+2. Jalankan script automate_ulfasyabania.py untuk preprocessing otomatis:
+   - Menghapus duplikat
+   - Encoding target ke numerik
+   - Standarisasi fitur numerik
+   - Menghapus kolom konstan
+   - Menyimpan hasil ke ionosphere_preprocessing.csv
+3. Hasil preprocessing (ionosphere_preprocessing.csv) siap digunakan untuk pelatihan model machine learning.
+4. Jika ingin menjalankan preprocessing secara manual:
+   - Buka terminal di folder Preprocessing
+   - Jalankan: 
+     python automate_ulfasyabania.py
+5. File output akan tersimpan di folder yang sama dengan script.
+6. Gunakan file ionosphere_preprocessing.csv untuk proses modeling selanjutnya.
