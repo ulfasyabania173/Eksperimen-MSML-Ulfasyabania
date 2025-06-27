@@ -1,4 +1,3 @@
-
 import pandas as pd
 import mlflow
 import mlflow.sklearn
@@ -29,18 +28,17 @@ def main():
         best_model = grid.best_estimator_
         y_pred = best_model.predict(X_test)
         acc = accuracy_score(y_test, y_pred)
-        report = classification_report(y_test, y_pred, output_dict=False)
+        report = classification_report(y_test, y_pred)
 
         # Manual logging
         mlflow.log_param('best_n_estimators', getattr(best_model, 'n_estimators', None))
-        mlflow.log_param('best_max_depth', getattr(best_model, 'max_depth', None))
+        mlflow.log_param('best_max_depth', getattr(best_model, 'max_depth', None)) # type: ignore
         mlflow.log_param('best_min_samples_split', getattr(best_model, 'min_samples_split', None))
         mlflow.log_param('train_size', X_train.shape[0])
         mlflow.log_param('test_size', X_test.shape[0])
         mlflow.log_param('n_features', X.shape[1])
         mlflow.log_metric('accuracy', float(acc))
         mlflow.log_text(report, 'classification_report.txt')
-        import mlflow.sklearn
         mlflow.sklearn.log_model(best_model, 'model')
 
         print(f'Best Params: {grid.best_params_}')

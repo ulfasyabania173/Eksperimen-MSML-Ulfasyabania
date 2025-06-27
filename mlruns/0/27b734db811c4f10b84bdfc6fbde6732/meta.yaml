@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/27b734db811c4f10b84bdfc6fbde6732/artifacts
+end_time: 1751055146050
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 27b734db811c4f10b84bdfc6fbde6732
+run_name: melodic-toad-595
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751055098149
+status: 3
+tags: []
+user_id: Asus
