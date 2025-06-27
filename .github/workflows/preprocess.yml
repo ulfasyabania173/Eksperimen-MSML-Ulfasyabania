@@ -2,7 +2,11 @@ name: Preprocess Ionosphere Dataset
 
 on:
   push:
-    branches: [ main ]
+    paths:
+      - 'Preprocessing/**'
+  pull_request:
+    paths:
+      - 'Preprocessing/**'
   workflow_dispatch:
 
 jobs:
@@ -19,10 +23,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install pandas scikit-learn
 
       - name: Run preprocessing script
+        working-directory: ./Preprocessing
         run: |
           python automate_ulfasyabania.py
 
@@ -30,4 +34,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ionosphere_preprocessing
-          path: ionosphere_preprocessing.csv
+          path: Preprocessing/ionosphere_preprocessing.csv
