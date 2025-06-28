@@ -35,5 +35,6 @@ jobs:
           name: ml-artifacts
           path: |
             mlartifacts/
+            Preprocessing/ionosphere_preprocessing.csv
             **/classification_report.txt
             **/model/
