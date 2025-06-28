@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/d902290a6da9431f914e3dbf02bdbdcb/artifacts
+end_time: 1751068366835
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d902290a6da9431f914e3dbf02bdbdcb
+run_name: adventurous-wolf-796
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751068309329
+status: 3
+tags: []
+user_id: Asus
