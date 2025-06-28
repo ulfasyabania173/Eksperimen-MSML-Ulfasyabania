@@ -5,9 +5,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 
-# Aktifkan autolog MLflow
-mlflow.autolog()
-
 def main():
     # Load preprocessed data
     df = pd.read_csv('ionosphere_preprocessing.csv')
@@ -29,13 +26,15 @@ def main():
 
         # Predict & evaluate
         y_pred = model.predict(X_test)
-        acc = accuracy_score(y_test, y_pred)
-        mlflow.log_metric('accuracy', acc) # type: ignore
-        mlflow.log_text(classification_report(y_test, y_pred), 'classification_report.txt') # type: ignore
+        acc = float(accuracy_score(y_test, y_pred))
+        mlflow.log_metric('accuracy', acc)
+        report = classification_report(y_test, y_pred)  # hasilnya string
+        mlflow.log_text(report, 'classification_report.txt')
+        # Log model ke artefak run klasik
         mlflow.sklearn.log_model(model, "model")
+
         print(f"Run ID: {run.info.run_id}")
         print(f"Model artifact path: mlartifacts/0/{run.info.run_id}/artifacts/model/")
-
         print(f'Accuracy: {acc:.4f}')
         print('Model training and logging completed. Check your MLflow UI.')
 

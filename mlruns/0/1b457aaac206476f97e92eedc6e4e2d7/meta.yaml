@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/1b457aaac206476f97e92eedc6e4e2d7/artifacts
+end_time: 1751112914482
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1b457aaac206476f97e92eedc6e4e2d7
+run_name: delightful-mouse-619
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751112865297
+status: 3
+tags: []
+user_id: Asus
