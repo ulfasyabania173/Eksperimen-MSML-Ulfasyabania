@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/7c07f98b4e74471eb4598fffe463900e/artifacts
+end_time: 1751090108753
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 7c07f98b4e74471eb4598fffe463900e
+run_name: victorious-stoat-955
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1751090057740
+status: 3
+tags: []
+user_id: Asus
