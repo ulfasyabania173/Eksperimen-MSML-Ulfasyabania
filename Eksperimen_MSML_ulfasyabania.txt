@@ -24,6 +24,9 @@
 - requirements.txt, conda.yaml, MLProject
 - .github/workflows/preprocess.yml, ci_train_model.yml, ci_train_and_upload.yml
 
+Akses ke GitHub repository
+https://github.com/ulfasyabania173/Eksperimen-MSML-Ulfasyabania
+
 ## Catatan
 - Semua tahapan dapat dijalankan otomatis melalui workflow GitHub Actions.
 - Model dan artefak dapat di-serving dan dimonitor secara lokal menggunakan MLflow.

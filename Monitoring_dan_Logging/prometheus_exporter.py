@@ -1,33 +1,38 @@
-from prometheus_client import start_http_server, Gauge, Counter, Summary
-import time
-import random
+from prometheus_client import start_http_server, Gauge, Counter
+import time, requests
 
-# Metrik 1: Akurasi model
-model_accuracy = Gauge('model_accuracy', 'Akurasi model ML yang sedang di-deploy')
+# 1) Latency
+inference_latency = Gauge(
+    'inference_latency_seconds',
+    'Waktu round-trip setiap /invocations call')
 
-# Metrik 2: Jumlah prediksi yang dilakukan
-prediction_count = Counter('prediction_count', 'Total jumlah prediksi yang dilakukan oleh model')
+# 2) Throughput
+inference_requests = Counter(
+    'inference_requests_total',
+    'Total request ke /invocations')
 
-# Metrik 3: Waktu inferensi (detik)
-inference_time = Summary('inference_time_seconds', 'Waktu inferensi model dalam detik')
+# 3) Error rate
+inference_errors = Counter(
+    'inference_errors_total',
+    'Total request gagal ke /invocations')
 
-def update_metrics():
+def probe():
+    url = "http://127.0.0.1:5001/invocations"
+    payload = {"instances": [[5.1,3.5,1.4,0.2]]}
+    headers = {"Content-Type":"application/json"}
+
+    start = time.time()
+    try:
+        r = requests.post(url, json=payload, headers=headers, timeout=5)
+        inference_latency.set(time.time() - start)
+        inference_requests.inc()
+        if r.status_code != 200:
+            inference_errors.inc()
+    except Exception:
+        inference_errors.inc()
+
+if __name__ == '__main__':
+    start_http_server(8000)    # expose di :8000
     while True:
-        # Simulasi update akurasi model (ganti dengan pembacaan real dari MLflow/monitoring Anda)
-        accuracy = random.uniform(0.8, 1.0)
-        model_accuracy.set(accuracy)
-
-        # Simulasi jumlah prediksi bertambah
-        prediction_count.inc(random.randint(1, 5))
-
-        # Simulasi waktu inferensi
-        with inference_time.time():
-            time.sleep(random.uniform(0.01, 0.1))
-
-        time.sleep(10)
-
-if __name__ == "__main__":
-    # Jalankan Prometheus exporter di port 8000
-    start_http_server(8000)
-    print("Prometheus exporter berjalan di http://localhost:8000/metrics")
-    update_metrics()
+        probe()
+        time.sleep(5)

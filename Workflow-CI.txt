@@ -1,17 +1,20 @@
 # Dokumentasi Workflow-CI Eksperimen MSML Ulfasyabania
 
 ## Tujuan
-Workflow-CI dibuat untuk mengotomatisasi proses training, evaluasi, dan deployment model machine learning secara terintegrasi menggunakan GitHub Actions dan MLflow.
+Workflow-CI dibuat untuk mengotomatisasi proses training, evaluasi, deployment, dan monitoring model machine learning secara terintegrasi menggunakan GitHub Actions, MLflow, serta Prometheus & Grafana untuk monitoring.
 
 ## Tahapan Workflow-CI
 1. **Struktur Folder**
    - `Workflow-CI/MLProject/` : Berisi script model, environment, dan konfigurasi MLflow Project.
    - `.github/workflows/` : Berisi file workflow GitHub Actions untuk CI/CD.
+   - `Monitoring_dan_Logging/` : Berisi script Prometheus exporter dan konfigurasi monitoring.
 
 2. **File Utama**
-   - `Workflow-CI/MLProject/modeling_ulfasyabania.py` : Script utama training model.
+   - `Workflow-CI/MLProject/modeling_ulfasyabania.py` : Script utama training dan logging model ke artefak run klasik MLflow.
    - `Workflow-CI/MLProject/conda.yaml` : Environment conda untuk MLflow Project.
    - `Workflow-CI/MLProject/MLProject` : Konfigurasi MLflow Project.
+   - `Monitoring_dan_Logging/prometheus_exporter.py` : Exporter metrik Prometheus untuk monitoring model.
+   - `Monitoring_dan_Logging/prometheus.yml` : Konfigurasi Prometheus untuk scraping metrik exporter.
 
 3. **Workflow GitHub Actions**
    - `.github/workflows/ci_train_model.yml` : Workflow untuk training model otomatis dan upload artefak saat ada perubahan pada script/data.
@@ -28,7 +31,12 @@ Workflow-CI dibuat untuk mengotomatisasi proses training, evaluasi, dan deployme
 
 5. **Integrasi MLflow Project**
    - MLflow Project (`MLProject` dan `conda.yaml`) memungkinkan eksekusi portable dan reproducible baik lokal maupun di CI/CD.
-   - Model dan artefak dapat di-serving secara lokal menggunakan MLflow CLI.
+   - Model dan artefak dapat di-serving secara lokal menggunakan MLflow CLI dari artefak run klasik (`mlartifacts/0/<run_id>/artifacts/model/`).
+
+6. **Monitoring & Alerting**
+   - Monitoring dilakukan dengan Prometheus dan Grafana.
+   - Exporter Python (`prometheus_exporter.py`) menyediakan metriks latency, throughput, dan error rate dari endpoint model.
+   - Prometheus meng-scrape metrik dari exporter, dan Grafana digunakan untuk visualisasi serta alerting.
 
 ## File Terkait
 - Workflow-CI/MLProject/modeling_ulfasyabania.py
@@ -36,7 +44,10 @@ Workflow-CI dibuat untuk mengotomatisasi proses training, evaluasi, dan deployme
 - Workflow-CI/MLProject/MLProject
 - .github/workflows/ci_train_model.yml
 - .github/workflows/ci_train_and_upload.yml
+- Monitoring_dan_Logging/prometheus_exporter.py
+- Monitoring_dan_Logging/prometheus.yml
 
 ## Catatan
 - Workflow dapat dikustomisasi sesuai kebutuhan (misal: deployment ke cloud, monitoring, dsb).
 - Semua proses dapat dijalankan otomatis tanpa intervensi manual setelah push ke repository.
+- Monitoring dan alerting dapat diperluas dengan menambah metriks atau integrasi notifikasi
