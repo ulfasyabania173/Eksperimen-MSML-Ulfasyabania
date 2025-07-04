@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'Workflow-CI/MLProject/**'
-      - 'Membangun_model/modeling_tuning_ulfasyabania.py'
+      - 'Membangun_model/modeling_tuning.py'
       - 'Preprocessing/ionosphere_preprocessing.csv'
   workflow_dispatch:
 
@@ -27,7 +27,7 @@ jobs:
 
       - name: Run model training
         run: |
-          python Membangun_model/modeling_tuning_ulfasyabania.py
+          python Membangun_model/modeling_tuning.py
 
       - name: Upload ML artifacts
         uses: actions/upload-artifact@v3
